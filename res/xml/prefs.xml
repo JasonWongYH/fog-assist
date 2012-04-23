@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Feedback Type">
+        <CheckBoxPreference
+            android:summary="@string/pref_summary_acoustic_flag"
+            android:title="@string/pref_title_acoustic_flag"
+            android:key="@string/pref_key_flag_acoustic" />
+        <CheckBoxPreference
+            android:summary="@string/pref_summary_tactile_flag"
+            android:title="@string/pref_title_tactile_flag"
+            android:key="@string/pref_key_flag_tactile" />
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+            android:title="Sensor Setup">
+    
+                <ListPreference
+                android:key="@string/pref_key_list_preference"
+                android:title="@string/title_list_preference"
+                android:summary="@string/summary_list_preference"
+                android:entries="@array/entries_list_preference"
+                android:entryValues="@array/entryvalues_list_preference"
+                android:dialogTitle="@string/dialog_title_list_preference" />
+        
+    </PreferenceCategory>    
+    
+</PreferenceScreen>

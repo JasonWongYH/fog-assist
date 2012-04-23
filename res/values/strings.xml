@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <string name="app_name">BlueHub</string>
+
+    <!--  BluetoothChat -->
+    <string name="send">Send</string>
+    <string name="not_connected">You are not connected to a device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
+    <string name="title_connecting">connecting...</string>
+    <string name="title_connected_to">connected to: </string>
+    <string name="title_not_connected">not connected</string>
+    <string name="welcome_message">Please press anywhere to start...</string>
+
+    <!--  DeviceListActivity -->
+    <string name="scanning">scanning for devices...</string>
+    <string name="select_device">select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
+
+    <!-- BlueHubService -->
+    <string name="service_name">BlueHubService</string>
+    <string name="service_stopped">Devices are disconnected</string>
+    
+    <string name="remote_service_started">Communicator is up and running...</string>
+    <string name="remote_service_stopped">Background communicator has stopped</string>
+    
+    <string name="remote_service_connected">BlueHub Service is now connected</string>
+    <string name="remote_service_disconnected">BlueHub Service has been disconnected</string>
+    <!-- Options Menu -->
+    <string name="disconnectService">Disconnect from Service</string>
+    <!--<string name="db">Stream from Database</string>-->
+    <string name="settings">Settings</string>
+    <string name="connect2device">Connect Device</string>
+
+	
+	<!-- Preference Activity -->
+	<string name="pref_key_flag_acoustic">Acoustic Feedback</string>
+    <string name="pref_summary_acoustic_flag">Select metronome ticking sound as feedback</string>
+    <string name="pref_title_acoustic_flag">Acoustic Feedback</string>
+    
+    <string name="pref_key_flag_tactile">Tactile Feedback</string>
+    <string name="pref_summary_tactile_flag">Select vibrotactile feedback</string>
+    <string name="pref_title_tactile_flag">Tactile Feedback</string>
+    
+    <string name="pref_key_list_preference">Sensor Setup</string>
+    <string name="dialog_title_list_preference"></string>
+    <string name="title_list_preference">Sensor List</string>
+    <string name="summary_list_preference">Select whether you want to use external, internal or both sensors</string>
+    <string-array name="entries_list_preference">
+        <item >Internal</item>
+        <item >External</item>
+        <item >External and Internal</item>
+    </string-array>
+    <string-array name="entryvalues_list_preference">
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+    </string-array>
+    
+</resources>
