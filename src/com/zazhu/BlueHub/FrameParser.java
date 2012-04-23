@@ -19,6 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 /*
+Contributions:
+-Added packet checksum capabilities
+Zack Zhu, Wearable Computing Laboratory, ETH Zurich
+*/
+
+/*
  * FrameParser.java
  *
  */
