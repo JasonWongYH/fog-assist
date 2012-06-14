@@ -1,16 +1,18 @@
 /*
-  Copyright (C) 2011-2012:
-        Zack Zhu, Sinziana Mazilu, Michael Hardegger and Daniel Roggen, Wearable Computing Laboratory, ETH Zurich
-
-   All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-  1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-  2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY COPYRIGHT HOLDERS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE FREEBSD PROJECT OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Copyright (C) 2009 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.zazhu.BlueHub;
 
@@ -145,8 +147,8 @@ public class BlueHub extends Activity {
 	private static char mCurrentClassifier;
 	
 	// FoG variables
-	private static final double FOG    = 0.0;
-	private static final double NO_FOG = 1.0;
+	private static final double FOG    = 1.0;
+	private static final double NO_FOG = 2.0;
 	
 	
 	// weka classifier
@@ -170,9 +172,9 @@ public class BlueHub extends Activity {
 	// Array adapter for the sensor list
 	private ArrayAdapter<String> mSensorDisplayArrayAdapter;
 	
-	private Queue<String> mSensorQueue = new LinkedList<String>();
+	private LinkedList<String> mSensorQueue = new LinkedList<String>();
 	// default
-	private static int mQueueSize = 80;
+	int mQueueSize = 64;
 	
 	
 	/**
@@ -389,9 +391,9 @@ public class BlueHub extends Activity {
 		
 		// create the arrays that will contain the accelerometer data
 		// s.x s.y s.z
-		double[] sx = new double[mQueueSize];
-		double[] sy = new double[mQueueSize];
-		double[] sz = new double[mQueueSize];
+		double[] sx = new double[sensorQueue.size()];
+		double[] sy = new double[sensorQueue.size()];
+		double[] sz = new double[sensorQueue.size()];
 
 		String rawReading;
 		StringTokenizer st;
@@ -437,12 +439,12 @@ public class BlueHub extends Activity {
 				newInstance = new DenseInstance(7);
 				newInstance.setDataset(format);
 				// set attributes
-				newInstance.setValue(format.attribute(0), Feature.getMean(sx));
-				newInstance.setValue(format.attribute(1), Feature.getMean(sy));
-				newInstance.setValue(format.attribute(2), Feature.getMean(sz));
-				newInstance.setValue(format.attribute(3), Feature.getStd(sx));
-				newInstance.setValue(format.attribute(4), Feature.getStd(sy));
-				newInstance.setValue(format.attribute(5), Feature.getStd(sz));
+				newInstance.setValue(format.attribute(0), Feature.getStd(sx));
+				newInstance.setValue(format.attribute(1), Feature.getStd(sy));
+				newInstance.setValue(format.attribute(2), Feature.getStd(sz));
+				newInstance.setValue(format.attribute(3), Feature.getMean(sx));
+				newInstance.setValue(format.attribute(4), Feature.getMean(sy));
+				newInstance.setValue(format.attribute(5), Feature.getMean(sz));
 				// set unknown class
 				newInstance.setMissing(format.attribute(6));
 
@@ -484,12 +486,12 @@ public class BlueHub extends Activity {
 				newInstance = new DenseInstance(7);
 				newInstance.setDataset(format);
 				// set attributes
-				newInstance.setValue(format.attribute(0), Feature.getMean(sx));
-				newInstance.setValue(format.attribute(1), Feature.getMean(sy));
-				newInstance.setValue(format.attribute(2), Feature.getMean(sz));
-				newInstance.setValue(format.attribute(3), Feature.getStd(sx));
-				newInstance.setValue(format.attribute(4), Feature.getStd(sy));
-				newInstance.setValue(format.attribute(5), Feature.getStd(sz));
+				newInstance.setValue(format.attribute(0), Feature.getStd(sx));
+				newInstance.setValue(format.attribute(1), Feature.getStd(sy));
+				newInstance.setValue(format.attribute(2), Feature.getStd(sz));
+				newInstance.setValue(format.attribute(3), Feature.getMean(sx));
+				newInstance.setValue(format.attribute(4), Feature.getMean(sy));
+				newInstance.setValue(format.attribute(5), Feature.getMean(sz));
 				// set unknown class
 				newInstance.setMissing(format.attribute(6));
 
@@ -528,15 +530,15 @@ public class BlueHub extends Activity {
 					switch (model) {
 					case EXTERNAL:
 						bfi = new BufferedInputStream(getResources()
-								.openRawResource(R.raw.class_extern));
+								.openRawResource(R.raw.j48));
 						break;
 					case INTERNAL:
 						bfi = new BufferedInputStream(getResources()
-								.openRawResource(R.raw.class_intern));
+								.openRawResource(R.raw.j48));
 						break;
 					case EXT_INT:
 						bfi = new BufferedInputStream(getResources()
-								.openRawResource(R.raw.class_extern_intern));
+								.openRawResource(R.raw.j48));
 						break;
 					default:
 						Log.i("status",
@@ -587,15 +589,20 @@ public class BlueHub extends Activity {
 
 		char newMode = gui_sharedPrefs.getSensorValue(BlueHub.this);
 		mSensorQueue.clear();
+	
 		switch(newMode){
 		case '1':
 			mQueueSize = 80;
+			break;
 		case '2':
-			mQueueSize = 60;
+			mQueueSize = 64;
+			break;
 		case '3':
 			mQueueSize = 150;
+			break;
+		default:
+			break;
 		}
-		
 		
 		readClassifier(newMode);
 		mCurrentClassifier=newMode;
@@ -688,13 +695,19 @@ public class BlueHub extends Activity {
     		     			
 	     			    	// getting the instance from the last data (taking into account the sensor selected)
         					// create a copy to avoid to empty the original queue
-        					Queue<String> mSensorQueueCopy = new LinkedList<String>();
+        					LinkedList<String> mSensorQueueCopy = new LinkedList<String>();
         					mSensorQueueCopy.addAll(mSensorQueue);
+        					
+        					System.out.println(mSensorQueueCopy.toString());
+        					
 	     			    	Instance instToBeClassified =  processingSenseData(mSensorQueueCopy, gui_sharedPrefs.getSensorValue(getApplicationContext()) );
+	     			    	System.out.println(instToBeClassified.toString());
+	     			    		
 	     			      				
 	     			    	// classify
 	     			    	double classRes = mCls.classifyInstance(instToBeClassified);
 	     			    	System.out.println( String.valueOf(classRes) );
+	     			    	System.out.println( instToBeClassified.classAttribute().value((int) classRes));
 	     			    	
 	     			    	if (classRes == FOG) {
 		     			    	// what kind of feedback was selected 
