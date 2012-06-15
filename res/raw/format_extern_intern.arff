@@ -1,0 +1,19 @@
+@relation fog_study
+
+@attribute std_s1x real
+@attribute std_s1y real
+@attribute std_s1z real
+@attribute std_s3x real
+@attribute std_s3y real
+@attribute std_s3z real
+@attribute mean_s1x real
+@attribute mean_s1y real
+@attribute mean_s1z real
+@attribute mean_s3x real
+@attribute mean_s3y real
+@attribute mean_s3z real
+@attribute class {1,2}
+
+@data
+
+1.149597e+001, 9.186190e+000, 1.139074e+001, -1.413125e+002, 1.006531e+003, 2.301563e+002, 1.149597e+001, 9.186190e+000, 1.139074e+001, -1.413125e+002, 1.006531e+003, 2.301563e+002, 2
