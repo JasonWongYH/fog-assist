@@ -530,15 +530,15 @@ public class BlueHub extends Activity {
 					switch (model) {
 					case EXTERNAL:
 						bfi = new BufferedInputStream(getResources()
-								.openRawResource(R.raw.j48));
+								.openRawResource(R.raw.j48_new));
 						break;
 					case INTERNAL:
 						bfi = new BufferedInputStream(getResources()
-								.openRawResource(R.raw.j48));
+								.openRawResource(R.raw.j48_new));
 						break;
 					case EXT_INT:
 						bfi = new BufferedInputStream(getResources()
-								.openRawResource(R.raw.j48));
+								.openRawResource(R.raw.j48_new));
 						break;
 					default:
 						Log.i("status",
